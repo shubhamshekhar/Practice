@@ -18,17 +18,18 @@ class BoxProblem
 		int max = 0;
 		for(int i=0;i<box.temp.length;i++)
 		{
-			System.out.println(box.temp[i]);
+			System.out.print(" "+box.temp[i]);
 			if (max<box.temp[i]);
 				max = box.temp[i];
 		}
+		System.out.println();
 	}
 
 	//private int arr[][] = new int[][]
 
 	private int findBox(int n, int width_left)
 	{
-		if(n==0/*||width_left==0*/||(width_left-w[n]<0&&width_left-h[n]<0))
+		if(n>0/*||width_left==0*/)
 		{
 			return 0;
 		}
@@ -38,9 +39,18 @@ class BoxProblem
 			val++;*/
 			return 0;
 		}
-		int temp1 = findBox(n-1,width_left);
-		int temp2 = w[n]*h[n]+findBox(n-1,width_left-w[n]);
-		int temp3 = w[n]*h[n]+findBox(n-1,width_left-h[n]);
+		int temp1 = 0;
+		int temp2 = 0;
+		int temp3 = 0;
+		temp1 = findBox(n-1,width_left);
+		if(width_left-w[n]>-1)
+			temp2 = w[n]*h[n]+findBox(n-1,width_left-w[n]);
+		else
+			n--;
+		if(width_left-h[n]>-1)
+			temp3 = w[n]*h[n]+findBox(n-1,width_left-h[n]);
+		else
+			n--;
 		if(width_left==0)
 		{
 			temp[val] = max(temp1,temp2,temp3);
